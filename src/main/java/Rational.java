@@ -12,7 +12,8 @@ class Rational {
      * This is a traditional constructor without any parameter
      */
     Rational() {
-        // to be completed
+        this.numerator = 1;
+        this.denominator = 1;
     }
 
     /***
@@ -22,7 +23,8 @@ class Rational {
      * @throws Illegal will throw Illegal when wrong inputs are given
      */
     Rational(long numerator, long denominator) throws Illegal { 
-        // to be completed
+        this.numerator = numerator;
+        this.denominator = denominator;
     }
 
     /***
@@ -59,15 +61,19 @@ class Rational {
      * @param x the rational number to be subtracted from the current rational number
      */
     public void subtract(Rational x) {
-        // to be completed
+        numerator = (numerator * x.denominator) - (x.numerator * denominator);
+        denominator = (denominator * x.denominator);
+        simplestForm();
     }
 
     /***
      * Compute a multiplication of the current rational number to another given rational number
      * @param x the rational number to be multiplied to the current rational number
      */
-    public void multiply(Rational x) { 
-        // to be completed
+    public void multiply(Rational x) {
+        numerator = numerator * x.numerator;
+        denominator = denominator * x.denominator;
+        simplestForm();
     }
 
     /***
@@ -75,7 +81,9 @@ class Rational {
      * @param x the rational number to be divided by the current rational number
      */
     public void divide(Rational x) {
-        // to be completed
+        numerator = numerator * x.denominator;
+        denominator = denominator * x.numerator;
+        simplestForm();
     }
 
     /***
@@ -84,8 +92,13 @@ class Rational {
      * @return true if the given rational number equals to the current, false otherwise
      */
     public boolean equals(Object x) {
-        // to be completed
-        return true; // TODO: This needs to be modified.
+        if(x instanceof Rational) {
+            Rational r = (Rational)x;
+            simplestForm();
+            r.simplestForm();
+            return (numerator == r.numerator) && (denominator == r.denominator);
+        }
+        return false;
     }
 
     /***
@@ -95,17 +108,21 @@ class Rational {
      * rational number is larger than the given number
      */
     public long compareTo(Object x) {
-        // to be completed
-        return -1; // TODO: this needs to be modified.
+        if(x instanceof Rational) {
+            Rational r = (Rational)x;
+            if(r.equals(this)) return 0;
+            else if((numerator*r.denominator) < (r.numerator*denominator)) return -1;
+            else return 1;
+        }
+        return -1;
     }
 
     /***
      * Give the formatted string of the rational number
      * @return the string representation of the rational number. For example, "1/2", "3/4".
      */
-    public String toString() { 
-        // to be completed
-        return ""; // TODO: This needs to be modified.
+    public String toString() {
+        return numerator+"/"+denominator; // TODO: This needs to be modified.
     }
 
     public static void main(String[] args) {
